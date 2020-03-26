@@ -6,5 +6,49 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Crud2';
+  title:string = 'Angular Crud';
+  msg:string = '';
+  employees = [
+    {'name': 'Fazt', position: 'Manager', email: 'email@correo.com'},
+    {'name': 'Juan', position: 'Designer', email: 'email@correo.com'},
+    {'name': 'Pedro', position: 'Programmer', email: 'email@correo.com'}
+  ];
+
+  model:any ={};
+  model2:any ={};
+
+  hideUpdate:boolean = true;
+
+  addEmployee():void{
+    this.employees.push(this.model);
+    this.msg = 'Successfully added';
+  }
+  deleteEmployee(i):void{
+    var answer = confirm("are you sure to delete?");
+    if(answer){
+      this.employees.splice(i, 1);
+      this.msg = 'Successfully deleted';
+    }
+  }
+  myvalue;
+  editEmployee(i):void{
+    this.hideUpdate = false;
+    this.model2.name = this.employees[i].name;
+    this.model2.position = this.employees[i].position;
+    this.model2.email = this.employees[i].email;
+    this.myvalue = i;
+  }
+  updateEmployee():void{
+    let i = this.myvalue;
+    for(let j = 0; j < this.employees.length; j++){
+      if(i == j){
+        this.employees[i] = this.model2;
+        this.model2 = {};
+        this.msg = 'Successfully updated';
+      }
+    }
+  }
+  closeAlert():void{
+    this.msg = '';
+  }
 }
